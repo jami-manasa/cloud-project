@@ -1,0 +1,11 @@
+CREATE TABLE so.rds_statistics (
+	db_resource_id      varchar(40),
+    db_identifier          varchar(40) ,
+    statiscs_name        varchar(40),
+    statistics_time         date,
+    statiscs_count       float ,
+	CONSTRAINT fk_db_resource_id
+      FOREIGN KEY(db_resource_id) 
+	  REFERENCES so.rds_databases(db_resource_id)
+	  ON DELETE CASCADE
+);

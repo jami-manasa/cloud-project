@@ -1,0 +1,30 @@
+*/5 * * * * /bin/python3 /bin/source/ss/auto_scaling.py >> /var/tmp/auto_scaling.log 2>&1
+*/5 * * * * /bin/python3 /bin/source/ss/ec2_autostop.py >> /var/tmp/ec2_autostop.log 2>&1
+*/5 * * * * /bin/python3 /bin/source/ss/ec2_scheduled_start.py >> /var/tmp/ec2_scheduled_start.log 2>&1
+*/5 * * * * /bin/python3 /bin/source/ss/ec2_scheduled_stop.py >> /var/tmp/ec2_scheduled_stop.log 2>&1
+
+
+*/5 * * * * /bin/python3 /bin/source/ss/ec2.py >> /var/tmp/ec2.log 2>&1
+*/5 * * * * /bin/python3 /bin/source/ss/rds_autostop.py >> /var/tmp/rds_autostop.log 2>&1
+
+
+*/5 * * * * /bin/python3 /bin/source/ss/rds_scheduled_start.py >> /var/tmp/rds_scheduled_start.log 2>&1
+*/5 * * * * /bin/python3 /bin/source/ss/rds_scheduled_stop.py >> /var/tmp/rds_scheduled_stop.log 2>&1
+
+*/5 * * * * /bin/python3 /bin/source/ss/eks_nodegroup.py >> /var/tmp/eks_nodegroup.log 2>&1
+*/5 * * * * /bin/python3 /bin/source/ss/eks_cluster_list.py >> /var/tmp/eks_cluster_list.log 2>&1
+*/5 * * * * /bin/python3 /bin/source/ss/eks_node_scale_in.py >> /var/tmp/eks_node_scale_in.log 2>&1
+*/5 * * * * /bin/python3 /bin/source/ss/eks_node_scale_out.py >> /var/tmp/eks_node_scale_out.log 2>&1
+*/5 * * * * /bin/python3 /bin/source/ss/rds.py >> /var/tmp/rds.log 2>&1
+*/5 * * * * /bin/python3 /bin/source/ss/scheduled_scale_in.py >> /var/tmp/scheduled_scale_in.log 2>&1
+*/5 * * * * /bin/python3 /bin/source/ss/scheduled_scale_out.py >> /var/tmp/scheduled_scale_out.log 2>&1
+
+
+
+
+0 */4 * * * /bin/python3 /bin/source/so/ebs_volumes.py >> /var/tmp/idle_ebs_volumes.log 2>&1
+0 */4 * * * /bin/python3 /bin/source/so/ec2_instances.py >> /var/tmp/idle_ec2_instances.log 2>&1
+0 */4 * * * /bin/python3 /bin/source/so/eip_address.py >> /var/tmp/idle_eip_address.log 2>&1
+0 */4 * * * /bin/python3 /bin/source/so/elastic_load_balancer.py >> /var/tmp/idle_elastic_load_balancer.log 2>&1
+0 */48 * * * /bin/python3 /bin/source/so/s3_buckets.py >> /var/tmp/idle_s3_buckets.log 2>&1
+0 */4 * * * /bin/python3 /bin/source/so/rds_databases.py >> /var/tmp/idle_rds_databases.log 2>&1

@@ -1,0 +1,103 @@
+---
+- hosts: csdevcm01
+  become: true
+
+  tasks:
+    # - name: copy aws_cm repo from local to remote host
+    #   copy: 
+    #    src:  /home/cloudearl/Documents/gitlab/aws_cm
+    #    dest: /home/ubuntu/
+    
+    - block:
+      # - name: build the aws_cm_image
+      #   command: sudo docker build -t aws_cm_image /home/ubuntu/aws_cm
+      
+      # - name: run the aws_cm_container
+      #   command: sudo docker run -itd --name aws_cm_container aws_cm_image
+      
+
+      - name: remove aws_cm DIR
+        command: sudo rm -r aws_cm
+      
+
+      - name: make aws_cm DIR 
+        command: sudo mkdir aws_cm
+      - name: copy Dockerfile from local to remote host(csdevcm01)
+        copy: 
+          src: /var/lib/jenkins/workspace/Solutions/DEV/aws_cm_pipeline/Dockerfile
+          dest: /home/ubuntu/aws_cm/
+      
+      - name: copy README.md from local to remote host(csdevcm01)
+        copy: 
+          src:  /var/lib/jenkins/workspace/Solutions/DEV/aws_cm_pipeline/README.md
+          dest: /home/ubuntu/aws_cm/
+
+      - name: copy crontab from local to remote host(csdevcm01)
+        copy: 
+          src:  /var/lib/jenkins/workspace/Solutions/DEV/aws_cm_pipeline/crontab
+          dest: /home/ubuntu/aws_cm/
+      
+      - name: copy playbooks from local to remote host(csdevcm01)
+        copy: 
+          src:  /var/lib/jenkins/workspace/Solutions/DEV/aws_cm_pipeline/playbooks
+          dest: /home/ubuntu/aws_cm/
+      
+      - name: copy requirements.txt from local to remote host(csdevcm01)
+        copy: 
+          src:  /var/lib/jenkins/workspace/Solutions/DEV/aws_cm_pipeline/requirements.txt
+          dest: /home/ubuntu/aws_cm/
+      
+      - name: copy source from local to remote host(csdevcm01)
+        copy: 
+          src:  /var/lib/jenkins/workspace/Solutions/DEV/aws_cm_pipeline/source
+          dest: /home/ubuntu/aws_cm/
+      
+      - name: copy sql from local to remote host(csdevcm01)
+        copy: 
+          src:  /var/lib/jenkins/workspace/Solutions/DEV/aws_cm_pipeline/sql
+          dest: /home/ubuntu/aws_cm/
+      - name: stop aws_cm_container
+        docker_container:
+          name: aws_cm_container
+          state: stopped
+
+      - name: remove aws_cm_container
+        docker_container:
+          name: aws_cm_container
+          state: absent
+      
+      - name: remove aws_cm_image
+        docker_image:
+          name: aws_cm_image
+          state: absent
+          # tag: latest
+      
+      - name: build aws_cm_image
+        docker_image:
+          name: aws_cm_image
+          path: /home/ubuntu/aws_cm
+      
+      - name: run aws_cm_container
+        docker_container:
+          name: aws_cm_container
+          image: aws_cm_image
+          state: started
+      - name: update restart policy aws_cm_container
+        command: sudo docker update --restart unless-stopped aws_cm_container
+
+      # - name: stop aws_cm_container
+      #   command: sudo docker stop aws_cm_container
+
+      # - name: remove aws_cm_container
+      #   command: sudo docker rm aws_cm_container
+
+      # - name: remove aws_cm_image
+      #   command: sudo docker rmi aws_cm_image
+      
+      # - name: build the aws_cm_image
+      #   command: sudo docker build -t aws_cm_image /home/ubuntu/aws_cm
+      
+      # - name: run the aws_cm_container
+      #   command: sudo docker run -itd --name aws_cm_container aws_cm_image
+
+      ignore_errors: yes 
