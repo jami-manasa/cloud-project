@@ -54,9 +54,9 @@ def insert_values(database_with_schema,data_from_aws):
         buffer.getvalue()
         print("here 2")
         try:
-            print(cursor.copy_expert(buffer,"{}".format(database_with_schema), sep=","))
+            print(cursor.copy_expert(buffer,"{}".format(database_with_schema)))
         except Exception as e:
-            print("erroe:",e)
+            print("error:",e)
         connection.commit() 
         cursor.close()
         return "successfully"
