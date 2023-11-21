@@ -30,6 +30,7 @@ def db_connection(schema):
 
 
 def insert_values(database_with_schema,data_from_aws):
+    print("in insert function")
     database=database_with_schema.split('.')
     connection=db_connection(database[0])
     try:
@@ -86,7 +87,7 @@ def data_crud_operation(connection,count,data_from_cloud,updating_by,database_wi
         if count == 0:
           
             inserting=insert_values(database_with_schema,data_from_cloud)
-            return "all data needs to insert"
+            return "all data needs to insert------------------------in crud fuction"
         else:
             data_from_database = get_dbdata(database_with_schema)
             pk=str(list(data_from_database.columns.values.tolist())[0])
@@ -101,7 +102,7 @@ def data_crud_operation(connection,count,data_from_cloud,updating_by,database_wi
                     data_from_cloud.loc[data_from_cloud[pk].isin(data_from_database[pk]),ignore_columns ] = data_from_database[ignore_columns]
                     print("considering your ignored columns")
                 except:
-                    print("getting issuses while ignoring the columns you mentioned")
+                    print("getting issues while ignoring the columns you mentioned")
             if data_from_database.empty:
                 print("all data need to insert")
                 inserting=insert_values(database_with_schema,data_from_cloud)
@@ -120,7 +121,7 @@ def data_crud_operation(connection,count,data_from_cloud,updating_by,database_wi
         return "closing the connection"
     except Exception as e:
         print(e)
-        print("getting issuses while moving with crud operation")
+        print("getting issues while moving with crud operation")
 
         
 def pass_to_db(database_with_schema,data_from_cloud,updating_by,ignore_columns):
@@ -144,9 +145,9 @@ def pass_to_db(database_with_schema,data_from_cloud,updating_by,ignore_columns):
         print(data_crud_operation(connection,count,data_from_cloud,updating_by,database_with_schema,ignore_columns))
         connection.commit()
         cursor.close()
-        return "task executed succesfully"
+        return "task executed successfully"
     except:
-        print("getting issuses while passing data into a database")
+        print("getting issues while passing data into a database")
 
 
 
