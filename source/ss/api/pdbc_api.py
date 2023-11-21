@@ -41,7 +41,7 @@ def insert_values(database_with_schema,data_from_cloud):
     try:
         cursor = connection.cursor()
         buffer = StringIO()
-
+        df = pd.DataFrame(data)
         df.to_sql('data_from_cloud', con=conn, if_exists='replace', 
           index=False) 
         conn = connection
