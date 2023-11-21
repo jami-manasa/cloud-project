@@ -5,6 +5,7 @@ from io import StringIO
 import time
 import psycopg2.extras
 from api.aws_api import *
+from sqlalchemy import create_engine 
 # try:
 #     with open("/bin/config.json", "r") as conf_file:
 #         configs = json.load(conf_file)
@@ -40,21 +41,35 @@ def insert_values(database_with_schema,data_from_cloud):
     try:
         cursor = connection.cursor()
         buffer = StringIO()
-        columns=get_columns(database_with_schema)
-        # print(columns)
-        data_from_cloud=data_from_cloud[columns]
+
+        df.to_sql('data_from_cloud', con=conn, if_exists='replace', 
+          index=False) 
+        conn = connection
+        conn.autocommit = True
+        cursor = conn.cursor() 
+          
+        sql1 = '''select * from data;'''
+        cursor.execute(sql1) 
+        for i in cursor.fetchall(): 
+            print(i) 
+  
+        # conn.commit() 
+        conn.close() 
+        # columns=get_columns(database_with_schema)
+        # # print(columns)
+        # data_from_cloud=data_from_cloud[columns]
          
-        data_from_cloud.to_csv( buffer, index=False, header=False)
-        print(type(data_from_cloud),"---------------->2")
-        print(data_from_cloud)
-        buffer.seek(0) 
-        try:
-            cursor.copy_from(buffer,"ec2_instances_schedules")
-        except Exception as e:
-            print(e,"----------------------------------")
-        connection.commit()
-        cursor.close()
-        return "succesfully updated the "
+        # data_from_cloud.to_csv( buffer, index=False, header=False)
+        # print(type(data_from_cloud),"---------------->2")
+        # print(data_from_cloud)
+        # buffer.seek(0) 
+        # try:
+        #     cursor.copy_from(buffer,"ec2_instances_schedules")
+        # except Exception as e:
+        #     print(e,"----------------------------------")
+        # connection.commit()
+        # cursor.close()
+        return "successfully updated the table"
     except (Exception, psycopg2.DatabaseError) as error:        
         print("Error: %s" % error)
         return "failed to update "
