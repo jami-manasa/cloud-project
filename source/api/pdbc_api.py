@@ -12,6 +12,23 @@ def db_connection(schema):
         return connection
     except Exception as e:
         print("Failed create a db connection -- ",e)
+# def insert_values(database_with_schema,data_from_aws):
+#     database=database_with_schema.split('.')
+#     connection=db_connection(database[0])
+#     try:
+#         cursor = connection.cursor()
+#         buffer = StringIO()
+#         data_from_aws.to_csv( buffer, index=False, header=False)
+#         buffer.seek(0) 
+#         cursor.copy_from(buffer,"{}".format(database[1]), sep=",",null='')
+#         connection.commit()
+#         cursor.close()
+#         return "succesfully "
+#     except (Exception, psycopg2.DatabaseError) as error:        
+#         print("Error: %s" % error)
+#         return "failed to insert data "
+
+
 def insert_values(database_with_schema,data_from_aws):
     database=database_with_schema.split('.')
     connection=db_connection(database[0])
@@ -19,11 +36,20 @@ def insert_values(database_with_schema,data_from_aws):
         cursor = connection.cursor()
         buffer = StringIO()
         data_from_aws.to_csv( buffer, index=False, header=False)
-        buffer.seek(0) 
-        cursor.copy_from(buffer,"{}".format(database[1]), sep=",",null='')
-        connection.commit()
-        cursor.close()
-        return "succesfully "
+        # f=open("name.csv",'r')
+        # cursor.copy_expert("COPY ss.ec2_instances_schedules FROM STDIN DELIMITER ','; ", buffer)
+        # buffer.seek(0)
+
+
+        # copy_query = "COPY 'ss.ec2_instances_schedules'  FROM STDOUT csv DELIMITER '\t' NULL ''  ESCAPE '\\' HEADER "  # Replace your table name in place of mem_info
+        # cursor.copy_expert(copy_query, buffer)
+        # buffer.seek(0)
+        # cursor.copy_from(f, "'ss'.ec2_instances_schedules",sep=",",null='')
+        buffer.getvalue()
+        print(cursor.copy_expert(buffer,"{}".format(database_with_schema), sep=","))
+        # connection.commit() 
+        # cursor.close()
+        return "successfully"
     except (Exception, psycopg2.DatabaseError) as error:        
         print("Error: %s" % error)
         return "failed to insert data "
