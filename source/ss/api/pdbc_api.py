@@ -37,37 +37,23 @@ def db_connection(schema):
 def insert_values(database_with_schema,data_from_cloud):
     database=database_with_schema.split('.')
     connection=db_connection(database[0])
-    print(type(data_from_cloud),"---------------------------->")
+    # print(type(data_from_cloud),"---------------------------->")
     try:
         cursor = connection.cursor()
         buffer = StringIO()
-        df = pd.DataFrame(data_from_cloud)
         
-        conn = connection
-        df.to_sql('data_from_cloud', con=conn, if_exists='replace', 
-          index=False) 
-        conn.autocommit = True
-        cursor = conn.cursor() 
-          
-        sql1 = '''select * from data_from_cloud;'''
-        cursor.execute(sql1) 
-        for i in cursor.fetchall(): 
-            print(i) 
-  
-        # conn.commit() 
-        conn.close() 
-        # columns=get_columns(database_with_schema)
-        # # print(columns)
-        # data_from_cloud=data_from_cloud[columns]
+        columns=get_columns(database_with_schema)
+        print(columns)
+        data_from_cloud=data_from_cloud[columns]
          
-        # data_from_cloud.to_csv( buffer, index=False, header=False)
-        # print(type(data_from_cloud),"---------------->2")
-        # print(data_from_cloud)
-        # buffer.seek(0) 
-        # try:
-        #     cursor.copy_from(buffer,"ec2_instances_schedules")
-        # except Exception as e:
-        #     print(e,"----------------------------------")
+        data_from_cloud.to_csv( buffer, index=False, header=False)
+        print(type(data_from_cloud),"---------------->2")
+        print(data_from_cloud)
+        buffer.seek(0) 
+        try:
+            cursor.copy_from(buffer,"ec2_instances_schedules")
+        except Exception as e:
+            print(e,"---------------------------------erroe-")
         # connection.commit()
         # cursor.close()
         return "successfully updated the table"
