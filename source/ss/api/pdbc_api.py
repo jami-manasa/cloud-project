@@ -73,16 +73,16 @@ def insert_values(database_with_schema,data_from_aws):
         # buffer.seek(0)
 
 
-        copy_query = "COPY ss.ec2_instances_schedules  FROM STDOUT csv DELIMITER '\t' NULL ''  ESCAPE '\\' HEADER "  # Replace your table name in place of mem_info
+        # copy_query = "COPY ss.ec2_instances_schedules  FROM STDOUT csv DELIMITER '\t' NULL ''  ESCAPE '\\' HEADER "  # Replace your table name in place of mem_info
         
-        cursor.copy_expert(copy_query, buffer)
+        # cursor.copy_expert(copy_query, buffer)
         
-        buffer.seek(0)
+        # buffer.seek(0)
         print("here I am")
-        # cursor.copy_from(f, "'ss'.ec2_instances_schedules",sep=",",null='')
-        # print("-------------------1")
-        # buffer.getvalue()
-        # print(cursor.copy_expert(buffer,"{}".format(database_with_schema), sep=","))
+        cursor.copy_from(f, "'ss'.ec2_instances_schedules",sep=",",null='')
+        print("-------------------1")
+        buffer.getvalue()
+        print(cursor.copy_expert(buffer,"{}".format(database_with_schema), sep=","))
         print("finally----------------------------------->")
         connection.commit() 
         cursor.close()
@@ -188,9 +188,9 @@ def pass_to_db(database_with_schema,data_from_cloud,updating_by,ignore_columns):
         print(data_crud_operation(connection,count,data_from_cloud,updating_by,database_with_schema,ignore_columns))
         connection.commit()
         cursor.close()
-        return "task executed succesfully"
+        return "task executed successfully"
     except:
-        print("getting issuses while passing data into a database")
+        print("getting issues while passing data into a database")
 
 
 
