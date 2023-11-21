@@ -73,14 +73,14 @@ def insert_values(database_with_schema,data_from_aws):
         # buffer.seek(0)
 
 
-        # copy_query = "COPY 'ss.ec2_instances_schedules'  FROM STDOUT csv DELIMITER '\t' NULL ''  ESCAPE '\\' HEADER "  # Replace your table name in place of mem_info
-        # cursor.copy_expert(copy_query, buffer)
-        # buffer.seek(0)
+        copy_query = "COPY 'ss.ec2_instances_schedules'  FROM STDOUT csv DELIMITER '\t' NULL ''  ESCAPE '\\' HEADER "  # Replace your table name in place of mem_info
+        cursor.copy_expert(copy_query, buffer)
+        buffer.seek(0)
         print("here I am")
         # cursor.copy_from(f, "'ss'.ec2_instances_schedules",sep=",",null='')
-        print("-------------------1")
-        buffer.getvalue()
-        print(cursor.copy_expert(buffer,"{}".format(database_with_schema), sep=","))
+        # print("-------------------1")
+        # buffer.getvalue()
+        # print(cursor.copy_expert(buffer,"{}".format(database_with_schema), sep=","))
         print("finally----------------------------------->")
         connection.commit() 
         cursor.close()
