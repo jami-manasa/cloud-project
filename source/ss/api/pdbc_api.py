@@ -48,7 +48,7 @@ def insert_values(database_with_schema,data_from_cloud):
         conn.autocommit = True
         cursor = conn.cursor() 
           
-        sql1 = '''select * from data;'''
+        sql1 = '''select * from data_from_cloud;'''
         cursor.execute(sql1) 
         for i in cursor.fetchall(): 
             print(i) 
