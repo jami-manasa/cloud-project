@@ -79,7 +79,7 @@ def insert_values(database_with_schema,data_from_aws):
         
         # buffer.seek(0)
         print("here I am")
-        cursor.copy_from(f, "'ss'.ec2_instances_schedules",sep=",",null='')
+        cursor.copy_from(data_from_aws, "'ss'.ec2_instances_schedules",sep=",",null='')
         print("-------------------1")
         buffer.getvalue()
         print(cursor.copy_expert(buffer,"{}".format(database_with_schema), sep=","))
