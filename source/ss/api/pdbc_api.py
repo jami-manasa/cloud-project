@@ -33,29 +33,63 @@ def db_connection(schema):
         print("Failed create a db connection -- ",e)
 
 
-def insert_values(database_with_schema,data_from_cloud):
+# def insert_values(database_with_schema,data_from_cloud):
+#     database=database_with_schema.split('.')
+#     connection=db_connection(database[0])
+#     try:
+#         cursor = connection.cursor()
+#         buffer = StringIO()
+#         columns=get_columns(database_with_schema)
+#         # print(columns)
+#         data_from_cloud=data_from_cloud[columns]
+         
+#         data_from_cloud.to_csv( buffer, index=False, header=False)
+#         # print(data_from_cloud)
+#         buffer.seek(0) 
+#         try:
+#             cursor.copy_from(buffer,"ec2_instances_schedules")
+#         except Exception as e:
+#             print(e,"----------------------------------")
+#         connection.commit()
+#         cursor.close()
+#         return "succesfully updated the "
+#     except (Exception, psycopg2.DatabaseError) as error:        
+#         print("Error: %s" % error)
+#         return "failed to update "
+
+
+def insert_values(database_with_schema,data_from_aws):
+    print("in insert function")
     database=database_with_schema.split('.')
     connection=db_connection(database[0])
     try:
         cursor = connection.cursor()
         buffer = StringIO()
-        columns=get_columns(database_with_schema)
-        # print(columns)
-        data_from_cloud=data_from_cloud[columns]
-         
-        data_from_cloud.to_csv( buffer, index=False, header=False)
-        # print(data_from_cloud)
-        buffer.seek(0) 
-        try:
-            cursor.copy_from(buffer,"ec2_instances_schedules")
-        except Exception as e:
-            print(e,"----------------------------------")
-        connection.commit()
+        data_from_aws.to_csv( buffer, index=False, header=False)
+        print(data_from_aws)
+        print("---------------------------------------------------------------------------------------------------------------------------")
+        # f=open("name.csv",'r')
+        # cursor.copy_expert("COPY ss.ec2_instances_schedules FROM STDIN DELIMITER ','; ", buffer)
+        # buffer.seek(0)
+
+
+        # copy_query = "COPY 'ss.ec2_instances_schedules'  FROM STDOUT csv DELIMITER '\t' NULL ''  ESCAPE '\\' HEADER "  # Replace your table name in place of mem_info
+        # cursor.copy_expert(copy_query, buffer)
+        # buffer.seek(0)
+        print("here I am")
+        # cursor.copy_from(f, "'ss'.ec2_instances_schedules",sep=",",null='')
+        print("-------------------1")
+        buffer.getvalue()
+        print(cursor.copy_expert(buffer,"{}".format(database_with_schema), sep=","))
+        print("finally----------------------------------->")
+        connection.commit() 
         cursor.close()
-        return "succesfully updated the "
+        return "successfully"
     except (Exception, psycopg2.DatabaseError) as error:        
         print("Error: %s" % error)
-        return "failed to update "
+        return "failed to insert data "
+
+
 
 def delete_values(database_with_schema,data_to_delete):
     database=database_with_schema.split('.')
