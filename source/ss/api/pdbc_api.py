@@ -60,10 +60,14 @@ def insert_values(database_with_schema,data_from_aws):
              buffer = StringIO()  
              data_from_aws.to_csv(buffer, index=False, header=False) 
              col=get_columns(database_with_schema)
-             print(col)
-            # Upload the DataFrame contents using COPY FROM  
-             buffer.seek(0) 
-             cursor.copy_from(buffer, 'ec2_instances_schedules', columns=col)  
+             # print(col)
+            # ['instance_id', 'instance_tag_name', 'tag_value_1', 'tag_value_2', 'tag_value_3', 'tag_value_4', 'instance_type', 'account_id', 'account_name', 'region', 'platform', 'instance_state', 'hourly_price', 'ec2_group_name', 'auto_stop_enable', 'recent_launch_time']
+             for row in data_from_aws.itertuples():
+                        cursor.execute("""
+                            INSERT INTO ec2_instances_schedules ('instance_id', 'instance_tag_name', 'tag_value_1', 'tag_value_2', 'tag_value_3', 'tag_value_4', 'instance_type', 'account_id', 'account_name', 'region', 'platform', 'instance_state', 'hourly_price', 'ec2_group_name', 'auto_stop_enable', 'recent_launch_time') 
+                            VALUES (%s, %s,%s, %s,%s, %s,%s, %s,%s, %s,%s, %s,%s, %s,%s, %s])
+                        """,(row.instance_id ,row.instance_tag_name ,row.tag_value_1 ,row.tag_value_2 ,row.tag_value_3 ,row.tag_value_3 ,row.instance_type ,row.account_id ,row.account_name ,row.region ,row.platform ,row.instance_state ,row.hourly_price ,row.ec2_group_name ,row.auto_stop_enable ,row.recent_launch_time))
+
              print("here haha :) ,---------------------------------------->")
             # Commit and close  
              connection.commit()
