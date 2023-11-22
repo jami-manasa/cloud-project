@@ -37,6 +37,7 @@ def db_connection(schema):
 def insert_values(database_with_schema,data_from_aws):
     database=database_with_schema.split('.')
     connection=db_connection(database[0])
+    cursor = connection.cursor()
     try:
         # cursor = connection.cursor()
         # buffer = StringIO()
@@ -60,11 +61,11 @@ def insert_values(database_with_schema,data_from_aws):
             
             # Upload the DataFrame contents using COPY FROM  
              buffer.seek(0) 
-             connection.copy_from(buffer, 'ss.ec2_instances_schedules', columns=['col1', 'col2'])  
+             cursor.copy_from(buffer, 'ss.ec2_instances_schedules', columns=['col1', 'col2'])  
              print("here haha :) ,---------------------------------------->")
             # Commit and close  
              connection.commit()
-             # cursor.close()
+             cursor.close()
              connection.close()
              print("here 2,---------------------------------------->")
             # print(cursor.copy_expert(buffer,"{}".format(database_with_schema)))
