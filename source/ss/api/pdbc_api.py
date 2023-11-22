@@ -62,12 +62,23 @@ def insert_values(database_with_schema,data_from_aws):
 
 
 
-        data_from_aws.to_sql('ss.ec2_instances_schedules', connection, if_exists='append', index=False)
-        print("here 2,---------------------------------------->")
+       
         try:
+             buffer = StringIO()  
+             data_from_aws.to_csv(buffer, index=False, header=False) 
+            
+            # Upload the DataFrame contents using COPY FROM  
+             buffer.seek(0) 
+             cursor.copy_from(buffer, 'ss.ec2_instances_schedules', columns=['col1', 'col2'])  
+            
+            # Commit and close  
+             connection.commit()
+             cursor.close()
+             connection.close()
+        print("here 2,---------------------------------------->")
             # print(cursor.copy_expert(buffer,"{}".format(database_with_schema)))
-            data_from_cloud.to_sql('ss.ec2_instances_schedules', connection, if_exists='append', index=False)
-            print("here 2,---------------------------------------->")
+            # data_from_cloud.to_sql('ss.ec2_instances_schedules', connection, if_exists='append', index=False)
+            # print("here 2,---------------------------------------->")
         except Exception as e:
             print("error:",e)
         connection.commit() 
