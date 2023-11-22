@@ -53,15 +53,6 @@ def insert_values(database_with_schema,data_from_aws):
         # cursor.copy_from(f, "'ss'.ec2_instances_schedules",sep=",",null='')
         # buffer.getvalue()
 
-
-
-
-
-
-
-
-
-
        
         try:
              buffer = StringIO()  
@@ -70,10 +61,10 @@ def insert_values(database_with_schema,data_from_aws):
             # Upload the DataFrame contents using COPY FROM  
              buffer.seek(0) 
              cursor.copy_from(buffer, 'ss.ec2_instances_schedules', columns=['col1', 'col2'])  
-            
+             print("here haha :) ,---------------------------------------->")
             # Commit and close  
              connection.commit()
-             cursor.close()
+             # cursor.close()
              connection.close()
              print("here 2,---------------------------------------->")
             # print(cursor.copy_expert(buffer,"{}".format(database_with_schema)))
@@ -82,7 +73,7 @@ def insert_values(database_with_schema,data_from_aws):
         except Exception as e:
             print("error:",e)
         connection.commit() 
-        cursor.close()
+        # cursor.close()
         return "successfully"
     except (Exception, psycopg2.DatabaseError) as error:   
         print(error,"-----------------------------")
