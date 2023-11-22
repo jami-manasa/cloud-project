@@ -58,10 +58,10 @@ def insert_values(database_with_schema,data_from_aws):
         try:
              buffer = StringIO()  
              data_from_aws.to_csv(buffer, index=False, header=False) 
-            
+             col=get_columns(database_with_schema)
             # Upload the DataFrame contents using COPY FROM  
              buffer.seek(0) 
-             cursor.copy_from(buffer, 'ss.ec2_instances_schedules', columns=['col1', 'col2'])  
+             cursor.copy_from(buffer, 'ec2_instances_schedules', columns=col)  
              print("here haha :) ,---------------------------------------->")
             # Commit and close  
              connection.commit()
