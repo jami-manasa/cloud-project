@@ -75,7 +75,7 @@ def insert_values(database_with_schema,data_from_aws):
              connection.commit()
              cursor.close()
              connection.close()
-        print("here 2,---------------------------------------->")
+             print("here 2,---------------------------------------->")
             # print(cursor.copy_expert(buffer,"{}".format(database_with_schema)))
             # data_from_cloud.to_sql('ss.ec2_instances_schedules', connection, if_exists='append', index=False)
             # print("here 2,---------------------------------------->")
