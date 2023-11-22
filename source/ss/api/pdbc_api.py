@@ -38,10 +38,10 @@ def insert_values(database_with_schema,data_from_aws):
     database=database_with_schema.split('.')
     connection=db_connection(database[0])
     try:
-        cursor = connection.cursor()
-        buffer = StringIO()
-        data_from_aws.to_csv( buffer, index=False, header=False)
-        print("here 1")
+        # cursor = connection.cursor()
+        # buffer = StringIO()
+        # data_from_aws.to_csv( buffer, index=False, header=False)
+        # print("here 1")
         # f=open("name.csv",'r')
         # cursor.copy_expert("COPY ss.ec2_instances_schedules FROM STDIN DELIMITER ','; ", buffer)
         # buffer.seek(0)
@@ -51,10 +51,23 @@ def insert_values(database_with_schema,data_from_aws):
         # cursor.copy_expert(copy_query, buffer)
         # buffer.seek(0)
         # cursor.copy_from(f, "'ss'.ec2_instances_schedules",sep=",",null='')
-        buffer.getvalue()
-        print("here 2")
+        # buffer.getvalue()
+
+
+
+
+
+
+
+
+
+
+        data_from_cloud.to_sql('ss.ec2_instances_schedules', connection, if_exists='append', index=False)
+        print("here 2,---------------------------------------->")
         try:
-            print(cursor.copy_expert(buffer,"{}".format(database_with_schema)))
+            # print(cursor.copy_expert(buffer,"{}".format(database_with_schema)))
+            data_from_cloud.to_sql('ss.ec2_instances_schedules', connection, if_exists='append', index=False)
+            print("here 2,---------------------------------------->")
         except Exception as e:
             print("error:",e)
         connection.commit() 
