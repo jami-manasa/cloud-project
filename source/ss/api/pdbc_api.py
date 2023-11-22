@@ -60,7 +60,7 @@ def insert_values(database_with_schema,data_from_aws):
             
             # Upload the DataFrame contents using COPY FROM  
              buffer.seek(0) 
-             cursor.copy_from(buffer, 'ss.ec2_instances_schedules', columns=['col1', 'col2'])  
+             connection.copy_from(buffer, 'ss.ec2_instances_schedules', columns=['col1', 'col2'])  
              print("here haha :) ,---------------------------------------->")
             # Commit and close  
              connection.commit()
