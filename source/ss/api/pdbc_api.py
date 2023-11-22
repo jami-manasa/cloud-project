@@ -60,6 +60,7 @@ def insert_values(database_with_schema,data_from_aws):
              buffer = StringIO()  
              data_from_aws.to_csv(buffer, index=False, header=False) 
              col=get_columns(database_with_schema)
+             print(col)
             # Upload the DataFrame contents using COPY FROM  
              buffer.seek(0) 
              cursor.copy_from(buffer, 'ec2_instances_schedules', columns=col)  
