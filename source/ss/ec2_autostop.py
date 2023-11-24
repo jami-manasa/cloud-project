@@ -146,7 +146,7 @@ try:
     # print("om...............................................>")
     data_from_database=get_dbdata_with_columns("ss.ec2_instances_schedules",wanted_columns) 
 except Exception as e:
-        # print(e,"hihihihhihihihh")
+        print(e)
 # print(data_from_database)
 # print("--------------------------------------------------------------------------.>")
 # if data_from_database:
@@ -165,7 +165,7 @@ except Exception as e:
 
 
 
-print("%s seconds ====>" % (time.time() - start_time),"time taken by script")
+# print("%s seconds ====>" % (time.time() - start_time),"time taken by script")
 
 print("-----------------------------------------------END---------------------------------------------------")
 print("script_end")
