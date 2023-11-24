@@ -233,18 +233,22 @@ def get_awsaccount_details(account_id,connection):
 
 
 def get_columns(database_with_schema):
+    print("-------------------------uuuuu")
     database=database_with_schema.split('.')
+    print("-------------------------------------------------jjjjj")
     connection=db_connection(database[0])
     try:
         cursor = connection.cursor()
         # query = "SELECT column_name FROM INFORMATION_SCHEMA.COLUMNS WHERE TABLE_NAME = '{}';".format(database[1])
         query = "SELECT column_name FROM INFORMATION_SCHEMA.COLUMNS WHERE TABLE_NAME = 'ss.ec2_instances_schedules';"
-        
+        print("hiiiiiiiii------------------------->1")
         cursor.execute(query)
+        print("hiiiiiiiii------------------------->2")
         records = cursor.fetchall()
+        print("hiiiiiiiii------------------------->3")
         connection.commit()
         columns=[]
-      
+        print("hiiiiiiiii------------------------->4")
         for i in records:
             columns.append(i[0])
         columns=columns
