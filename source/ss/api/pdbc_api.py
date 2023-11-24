@@ -271,6 +271,7 @@ def get_dbdata(database_with_schema):
     except:
         print("check whether the database exits or not")
 def get_dbdata_with_columns(database_with_schema,wanted_columns):
+    print("this function only..................................")
     col = ','.join([str(elem) for elem in wanted_columns])
     print(col,"-----------------------------------------------........................>>>>>>>>>>>>>>")
     try:
