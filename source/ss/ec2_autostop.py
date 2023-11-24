@@ -142,11 +142,8 @@ def non_statefull_auto_stop(non_statefull):
     
 wanted_columns=["account_id","region","instance_id","instance_tag_name","account_name","instance_state","auto_stop_enable","recent_launch_time" ]
 print("hhihihi manasa dont worry")
-try:
-    # print("om...............................................>")
-    data_from_database=get_dbdata_with_columns("ss.ec2_instances_schedules",wanted_columns) 
-except Exception as e:
-        print(e)
+data_from_database=get_dbdata_with_columns("ss.ec2_instances_schedules",wanted_columns) 
+
 # print(data_from_database)
 # print("--------------------------------------------------------------------------.>")
 # if data_from_database:
@@ -165,7 +162,7 @@ except Exception as e:
 
 
 
-# print("%s seconds ====>" % (time.time() - start_time),"time taken by script")
+print("%s seconds ====>" % (time.time() - start_time),"time taken by script")
 
 print("-----------------------------------------------END---------------------------------------------------")
 print("script_end")
