@@ -233,22 +233,22 @@ def get_awsaccount_details(account_id,connection):
 
 
 def get_columns(database_with_schema):
-    print("-------------------------uuuuu")
+    
     database=database_with_schema.split('.')
-    print("-------------------------------------------------jjjjj")
+    
     connection=db_connection(database[0])
     try:
         cursor = connection.cursor()
         # query = "SELECT column_name FROM INFORMATION_SCHEMA.COLUMNS WHERE TABLE_NAME = '{}';".format(database[1])
         query = "SELECT column_name FROM INFORMATION_SCHEMA.COLUMNS WHERE TABLE_NAME = 'ss.ec2_instances_schedules';"
-        print("hiiiiiiiii------------------------->1")
+        # print("hiiiiiiiii------------------------->1")
         cursor.execute(query)
-        print("hiiiiiiiii------------------------->2")
+        # print("hiiiiiiiii------------------------->2")
         records = cursor.fetchall()
-        print("hiiiiiiiii------------------------->3")
+        # print("hiiiiiiiii------------------------->3")
         connection.commit()
         columns=[]
-        print("hiiiiiiiii------------------------->4")
+        # print("hiiiiiiiii------------------------->4")
         for i in records:
             columns.append(i[0])
         columns=columns
@@ -272,11 +272,15 @@ def get_dbdata(database_with_schema):
         print("check whether the database exits or not")
 def get_dbdata_with_columns(database_with_schema,wanted_columns):
     col = ','.join([str(elem) for elem in wanted_columns])
+    print(col,"-----------------------------------------------........................>>>>>>>>>>>>>>")
     try:
         database=database_with_schema.split('.')
+        print("-------------------------uuuuu")
         connection=db_connection(database[0])
         cursor = connection.cursor()
+        print("-------------------------------------------------jjjjj")
         query = " SELECT {0} FROM {1};".format(col,database[1])
+        print(query)
         cursor.execute(query)
         data_from_database = pd.DataFrame(cursor.fetchall(),columns=wanted_columns)
         connection.commit()
