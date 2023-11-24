@@ -141,6 +141,7 @@ def non_statefull_auto_stop(non_statefull):
         print(e)
     
 wanted_columns=["account_id","region","instance_id","instance_tag_name","account_name","instance_state","auto_stop_enable","recent_launch_time" ]
+print("hhihihi manasa dont worry")
 try:
     data_from_database=get_dbdata_with_columns("ss.ec2_instances_schedules",wanted_columns) 
 except Exception as e:
