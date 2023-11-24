@@ -147,7 +147,7 @@ try:
     data_from_database=get_dbdata_with_columns("ss.ec2_instances_schedules",wanted_columns) 
 except Exception as e:
         # print(e,"hihihihhihihihh")
-print(data_from_database)
+# print(data_from_database)
 # print("--------------------------------------------------------------------------.>")
 # if data_from_database:
 #     statefull=data_from_database[data_from_database.is_statefull_set == 'true']
