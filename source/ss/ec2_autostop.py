@@ -142,7 +142,8 @@ def non_statefull_auto_stop(non_statefull):
     
 wanted_columns=["account_id","region","instance_id","instance_tag_name","account_name","instance_state","auto_stop_enable","recent_launch_time" ]
 data_from_database=get_dbdata_with_columns("ss.ec2_instances_schedules",wanted_columns) 
-# print(data_from_database)
+print(data_from_database)
+print("--------------------------------------------------------------------------.>")
 if data_from_database.empty:
         print("auto_stop state is false for aws instances's")
 else:
