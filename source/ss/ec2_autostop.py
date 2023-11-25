@@ -175,12 +175,6 @@ data_from_database=get_dbdata_with_columns("ss.ec2_instances_schedules",wanted_c
 # print(data_from_database)
 print("--------------------------------------------------------------------------.>")
 if data_from_database:
-    statefull=data_from_database[data_from_database.is_statefull_set == 'true']
-    non_statefull =data_from_database[data_from_database.is_statefull_set != 'true']
-    if not statefull.empty:
-        t1=Thread(target = statefull_auto_stop(statefull))
-        t1.start()
-    if not non_statefull.empty:
         t2=Thread(target = non_statefull_auto_stop(non_statefull))
         t2.start() 
         
