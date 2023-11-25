@@ -68,15 +68,15 @@ def  get_max_cpu_utlz(data_from_database):
             sec = diff.total_seconds()
             ins_id=list(records["instance_id"])[i]
             cloudwatch_client = create_client(acc_id,region,assume_role,'cloudwatch')
-            start_time = datetime.utcnow() - timedelta(hours=2,minutes=5)
+            start_time = datetime.utcnow() - timedelta(hours=10,minutes=5)
             endTime = datetime.utcnow() - timedelta(minutes=5)
-            response = cloudwatch_client.get_metric_statistics(Namespace='AWS/EC2',MetricName='CPUUtilization',Period=600,
+            response = cloudwatch_client.get_metric_statistics(Namespace='AWS/EC2',MetricName='CPUUtilization',Period=60,
                                                         Dimensions=[{
                                                             'Name': 'InstanceId','Value':ins_id},],
                                                         StartTime=start_time,
                                                         EndTime=endTime,
                                                         Statistics=['Maximum'])                                      
-            maximum  = jmespath.search("Datapoints[*].[Maximum]",response)
+            maximum  = jmespath.search("Datapoints[*].[Maximum]",response) 
             print(response,"------------------------------------------------------------> ram ram")
             if sec > 7200:
                 if (max(maximum)[0]) < 6: 
