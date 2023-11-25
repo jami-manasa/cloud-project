@@ -45,18 +45,19 @@ def stop_instances(ec2,id,connection):
 
 
 def get_dbdata_with_columns(database_with_schema,wanted_columns):
-    print("this function only..................................")
     col = ','.join([str(elem) for elem in wanted_columns])
     print(col,"-----------------------------------------------........................>>>>>>>>>>>>>>")
     try:
         database=database_with_schema.split('.')
-        print("-------------------------uuuuu")
         connection=db_connection(database[0])
         cursor = connection.cursor()
-        print("-------------------------------------------------jjjjj")
         query = " SELECT {0} FROM {1};".format(col,database[1])
         print(query)
-        cursor.execute(query)
+        
+        try:
+           cursor.execute(query)
+        except Exception as e:
+            print(e)
         print("yeah fine")
         try:
             data_from_database = pd.DataFrame(cursor.fetchall(),columns=wanted_columns)
