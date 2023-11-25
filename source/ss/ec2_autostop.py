@@ -51,7 +51,7 @@ def get_dbdata_with_columns(database_with_schema,wanted_columns):
         database=database_with_schema.split('.')
         connection=db_connection(database[0])
         cursor = connection.cursor()
-        query = " SELECT {0} FROM {1};".format(col,database[1])
+        query = " SELECT {0} FROM ss.{1};".format(col,database[1])
         print(query)
         
         try:
