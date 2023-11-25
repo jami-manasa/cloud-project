@@ -46,7 +46,6 @@ def stop_instances(ec2,id,connection):
 
 def get_dbdata_with_columns(database_with_schema,wanted_columns):
     col = ','.join([str(elem) for elem in wanted_columns])
-    print(col,"-----------------------------------------------........................>>>>>>>>>>>>>>")
     try:
         database=database_with_schema.split('.')
         connection=db_connection(database[0])
@@ -66,7 +65,7 @@ def get_dbdata_with_columns(database_with_schema,wanted_columns):
         connection.commit()
         return data_from_database
     except:
-        print("error                                     ------------------")
+        print("check whether columns or table name correct or not-")
 
 def  get_max_cpu_utlz(data_from_database):
     try:
@@ -170,16 +169,15 @@ def non_statefull_auto_stop(non_statefull):
 wanted_columns=["account_id","region","instance_id","instance_tag_name","account_name","instance_state","auto_stop_enable","recent_launch_time" ]
 # print(wanted_columns)
 data_from_database=get_dbdata_with_columns("ss.ec2_instances_schedules",wanted_columns)
-# print("doneeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeee")
 
-print(data_from_database)
-print("--------------------------------------------------------------------------.>")
-# if data_from_database:
-#         t2=Thread(target = non_statefull_auto_stop(non_statefull))
-#         t2.start() 
+if data_from_database.empty:
+     print("auto_stop state is false for aws instances's")
         
-# else:
-#     print("auto_stop state is false for aws instances's")
+        
+else:
+    t2=Thread(target = non_statefull_auto_stop(non_statefull))
+    t2.start() 
+   
     
 
 
