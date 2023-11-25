@@ -175,7 +175,7 @@ if data_from_database.empty:
         
         
 else:
-    non_statefull =data_from_database[data_from_database.is_statefull_set == 'true']
+    non_statefull =data_from_database[data_from_database.auto_stop_enable == 'true']
     t2=Thread(target = non_statefull_auto_stop(non_statefull))
     t2.start() 
    
