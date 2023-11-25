@@ -18,7 +18,7 @@ def stop_instances(ec2,id,connection):
         # print('Instance Stopping  Successfully .')
         query = "select instance_tag_name from  ss.ec2_instances_schedules WHERE instance_id = '{}' ".format(id)
         id_name=pd.read_sql(query,connection)
-        print(id_name['instance_tag_name'][0]+" is "+response['StoppingInstances'][0]['CurrentState']['Name']+".")
+        print(id_name['instance_tag_name'][0]+" is "+response['StoppingInstances'][0]['CurrentState']['Name']+". ----------------------->")
 
     except ClientError as e:
         print('Error', e)
@@ -77,7 +77,6 @@ def  get_max_cpu_utlz(data_from_database):
                                                         EndTime=endTime,
                                                         Statistics=['Maximum'])                                      
             maximum  = jmespath.search("Datapoints[*].[Maximum]",response) 
-            print(response,"------------------------------------------------------------> ram ram")
             if sec > 7200:
                 if (max(maximum)[0]) < 6: 
                     ec2 = create_client(acc_id,region,assume_role, 'ec2')
