@@ -57,11 +57,15 @@ def get_dbdata_with_columns(database_with_schema,wanted_columns):
         query = " SELECT {0} FROM {1};".format(col,database[1])
         print(query)
         cursor.execute(query)
-        data_from_database = pd.DataFrame(cursor.fetchall(),columns=wanted_columns)
+        print("yeah fine")
+        try:
+            data_from_database = pd.DataFrame(cursor.fetchall(),columns=wanted_columns)
+        except Exception as e:
+            print(e)
         connection.commit()
         return data_from_database
     except:
-        print("----------------------------------------------------------------> now jai shree krishna")
+        print("error                                     ------------------")
 
 def  get_max_cpu_utlz(data_from_database):
     try:
@@ -163,12 +167,12 @@ def non_statefull_auto_stop(non_statefull):
         print(e)
     
 wanted_columns=["account_id","region","instance_id","instance_tag_name","account_name","instance_state","auto_stop_enable","recent_launch_time" ]
-print(wanted_columns)
+# print(wanted_columns)
 print(get_dbdata_with_columns("ss.ec2_instances_schedules",wanted_columns) )
-print("doneeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeee")
+# print("doneeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeee")
 
 # print(data_from_database)
-# print("--------------------------------------------------------------------------.>")
+print("--------------------------------------------------------------------------.>")
 # if data_from_database:
 #     statefull=data_from_database[data_from_database.is_statefull_set == 'true']
 #     non_statefull =data_from_database[data_from_database.is_statefull_set != 'true']
