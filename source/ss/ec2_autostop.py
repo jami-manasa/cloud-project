@@ -24,22 +24,44 @@ def stop_instances(ec2,id,connection):
         print('Error', e)
 
        
+# def get_dbdata_with_columns(database_with_schema,wanted_columns):
+    
+#     col = ','.join([str(elem) for elem in wanted_columns])
+#     try:
+#         database=database_with_schema.split('.')
+#         cursor = connection.cursor()
+#         query = " select {0} FROM {1} WHERE auto_stop_enable='{2}' AND instance_state= '{3}' ;".format(col,database[1],str('true'),str('running')) 
+#         cursor.execute(query)
+#         data_from_database = pd.DataFrame(cursor.fetchall(),columns=wanted_columns)
+#         if data_from_database.empty:
+#             print('No instance is ready for auto auto stop')
+#         else:
+#             print("Some intances  are ready for auto auto stop.")
+#         connection.commit()
+#         return data_from_database
+#     except:
+#         print("check whether the database exits the exact columns") 
+
+
+
 def get_dbdata_with_columns(database_with_schema,wanted_columns):
+    print("this function only..................................")
     col = ','.join([str(elem) for elem in wanted_columns])
+    print(col,"-----------------------------------------------........................>>>>>>>>>>>>>>")
     try:
         database=database_with_schema.split('.')
+        print("-------------------------uuuuu")
+        connection=db_connection(database[0])
         cursor = connection.cursor()
-        query = " select {0} FROM {1} WHERE auto_stop_enable='{2}' AND instance_state= '{3}' ;".format(col,database[1],str('true'),str('running')) 
+        print("-------------------------------------------------jjjjj")
+        query = " SELECT {0} FROM {1};".format(col,database[1])
+        print(query)
         cursor.execute(query)
         data_from_database = pd.DataFrame(cursor.fetchall(),columns=wanted_columns)
-        if data_from_database.empty:
-            print('No instance is ready for auto auto stop')
-        else:
-            print("Some intances  are ready for auto auto stop.")
         connection.commit()
         return data_from_database
     except:
-        print("check whether the database exits the exact columns") 
+        print("----------------------------------------------------------------> now jai shree krishna")
 
 def  get_max_cpu_utlz(data_from_database):
     try:
