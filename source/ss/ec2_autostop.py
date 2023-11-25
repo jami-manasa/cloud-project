@@ -70,7 +70,7 @@ def  get_max_cpu_utlz(data_from_database):
             cloudwatch_client = create_client(acc_id,region,assume_role,'cloudwatch')
             start_time = datetime.utcnow() - timedelta(hours=2,minutes=5)
             endTime = datetime.utcnow() - timedelta(minutes=5)
-            response = cloudwatch_client.get_metric_statistics(Namespace='AWS/EC2',MetricName='CPUUtilization',Period=5,
+            response = cloudwatch_client.get_metric_statistics(Namespace='AWS/EC2',MetricName='CPUUtilization',Period=123,
                                                         Dimensions=[{
                                                             'Name': 'InstanceId','Value':ins_id},],
                                                         StartTime=start_time,
