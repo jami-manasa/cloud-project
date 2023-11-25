@@ -215,7 +215,7 @@ def get_dbdata_with_columns(database_with_schema,wanted_columns):
         connection.commit()
         return data_from_database
     except:
-        print("check whether the database exits the exact columns---------------------------------------------------------------------------------> jai shree ram")
+        print("check whether the database exits the exact column")
 
 def remove_records(database_with_schema,update_by,update_value):
     database=database_with_schema.split('.')
