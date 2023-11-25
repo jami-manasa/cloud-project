@@ -77,6 +77,7 @@ def  get_max_cpu_utlz(data_from_database):
                                                         EndTime=endTime,
                                                         Statistics=['Maximum'])                                      
             maximum  = jmespath.search("Datapoints[*].[Maximum]",response)
+            print(maximum,"------------------------------------------------------------> ram ram")
             if sec > 7200:
                 if (max(maximum)[0]) < 6: 
                     ec2 = create_client(acc_id,region,assume_role, 'ec2')
@@ -106,7 +107,7 @@ def statefull_auto_stop(statefull):
             ec2 = create_client(acc_id,region,assume_role, 'ec2')
             print(stop_instances(ec2,ins_id,connection))
     else:
-        print("no need of autosotp for this  statefull set ")
+        print("no need of autostop for this  stateful set ")
 
        
 
