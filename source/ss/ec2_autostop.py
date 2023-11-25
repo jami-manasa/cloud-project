@@ -77,7 +77,7 @@ def  get_max_cpu_utlz(data_from_database):
                                                         EndTime=endTime,
                                                         Statistics=['Maximum'])                                      
             maximum  = jmespath.search("Datapoints[*].[Maximum]",response)
-            print(maximum,"------------------------------------------------------------> ram ram")
+            print(response,"------------------------------------------------------------> ram ram")
             if sec > 7200:
                 if (max(maximum)[0]) < 6: 
                     ec2 = create_client(acc_id,region,assume_role, 'ec2')
