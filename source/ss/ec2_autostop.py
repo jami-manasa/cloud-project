@@ -172,14 +172,14 @@ wanted_columns=["account_id","region","instance_id","instance_tag_name","account
 data_from_database=get_dbdata_with_columns("ss.ec2_instances_schedules",wanted_columns)
 # print("doneeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeee")
 
-# print(data_from_database)
+print(data_from_database)
 print("--------------------------------------------------------------------------.>")
-if data_from_database:
-        t2=Thread(target = non_statefull_auto_stop(non_statefull))
-        t2.start() 
+# if data_from_database:
+#         t2=Thread(target = non_statefull_auto_stop(non_statefull))
+#         t2.start() 
         
-else:
-    print("auto_stop state is false for aws instances's")
+# else:
+#     print("auto_stop state is false for aws instances's")
     
 
 
