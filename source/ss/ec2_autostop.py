@@ -142,7 +142,7 @@ def non_statefull_auto_stop(non_statefull):
     
 wanted_columns=["account_id","region","instance_id","instance_tag_name","account_name","instance_state","auto_stop_enable","recent_launch_time" ]
 print(wanted_columns)
-print(get_columns("ss.ec2_instances_schedules") )
+print(data_from_database=get_dbdata_with_columns("ss.ec2_instances_schedules",wanted_columns) )
 print("doneeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeee")
 
 # print(data_from_database)
