@@ -169,23 +169,23 @@ def non_statefull_auto_stop(non_statefull):
     
 wanted_columns=["account_id","region","instance_id","instance_tag_name","account_name","instance_state","auto_stop_enable","recent_launch_time" ]
 # print(wanted_columns)
-print(get_dbdata_with_columns("ss.ec2_instances_schedules",wanted_columns) )
+data_from_database=get_dbdata_with_columns("ss.ec2_instances_schedules",wanted_columns)
 # print("doneeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeee")
 
 # print(data_from_database)
 print("--------------------------------------------------------------------------.>")
-# if data_from_database:
-#     statefull=data_from_database[data_from_database.is_statefull_set == 'true']
-#     non_statefull =data_from_database[data_from_database.is_statefull_set != 'true']
-#     if not statefull.empty:
-#         t1=Thread(target = statefull_auto_stop(statefull))
-#         t1.start()
-#     if not non_statefull.empty:
-#         t2=Thread(target = non_statefull_auto_stop(non_statefull))
-#         t2.start() 
+if data_from_database:
+    statefull=data_from_database[data_from_database.is_statefull_set == 'true']
+    non_statefull =data_from_database[data_from_database.is_statefull_set != 'true']
+    if not statefull.empty:
+        t1=Thread(target = statefull_auto_stop(statefull))
+        t1.start()
+    if not non_statefull.empty:
+        t2=Thread(target = non_statefull_auto_stop(non_statefull))
+        t2.start() 
         
-# else:
-#     print("auto_stop state is false for aws instances's")
+else:
+    print("auto_stop state is false for aws instances's")
     
 
 
