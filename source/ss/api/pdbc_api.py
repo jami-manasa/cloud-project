@@ -38,24 +38,10 @@ def insert_values(database_with_schema,data_from_aws):
     database=database_with_schema.split('.')
     print(database,"--------------------------------------------------???????")
     connection=db_connection(database[0])
+     print("here 2-----------88888888888888888888888,---------------------------------------->")
     cursor = connection.cursor()
-    try:
-        # cursor = connection.cursor()
-        # buffer = StringIO()
-        # data_from_aws.to_csv( buffer, index=False, header=False)
-        # print("here 1")
-        # f=open("name.csv",'r')
-        # cursor.copy_expert("COPY ss.ec2_instances_schedules FROM STDIN DELIMITER ','; ", buffer)
-        # buffer.seek(0)
-
-
-        # copy_query = "COPY 'ss.ec2_instances_schedules'  FROM STDOUT csv DELIMITER '\t' NULL ''  ESCAPE '\\' HEADER "  # Replace your table name in place of mem_info
-        # cursor.copy_expert(copy_query, buffer)
-        # buffer.seek(0)
-        # cursor.copy_from(f, "'ss'.ec2_instances_schedules",sep=",",null='')
-        # buffer.getvalue()
-
-       
+    print("here 3,---------------------------------------->")
+    try:   
         try:
              print("here haha :) ,---------------------------------------->")
              buffer = StringIO()  
