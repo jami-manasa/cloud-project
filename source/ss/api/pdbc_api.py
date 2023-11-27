@@ -36,20 +36,14 @@ def db_connection(schema):
 
 def insert_values(database_with_schema,data_from_aws):
     database=database_with_schema.split('.')
-    print(database,"--------------------------------------------------???????")
     connection=db_connection(database[0])
-     print("here 2-----------88888888888888888888888,---------------------------------------->")
+    
     cursor = connection.cursor()
-    print("here 3,---------------------------------------->")
     try:   
         try:
-             print("here haha :) ,---------------------------------------->")
              buffer = StringIO()  
-             print("here 2,---------------------------------------->====")
              data_from_aws.to_csv(buffer, index=False, header=False) 
-             print("here 2,----------------------------------------00000000000000000>")
              col=get_columns(database_with_schema)
-             print("here 2,----------------------------------------888888888888888>")
              # print(col)
             # ['instance_id', 'instance_tag_name', 'tag_value_1', 'tag_value_2', 'tag_value_3', 'tag_value_4', 'instance_type', 'account_id', 'account_name', 'region', 'platform', 'instance_state', 'hourly_price', 'ec2_group_name', 'auto_stop_enable', 'recent_launch_time']
              for row in data_from_aws.itertuples():
