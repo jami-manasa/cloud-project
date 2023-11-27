@@ -49,7 +49,7 @@ def insert_values(database_with_schema,data_from_aws):
              for row in data_from_aws.itertuples():
                         cursor.execute("""
                             INSERT INTO ss.ec2_instances_schedules (instance_id,instance_tag_name,tag_value_1,tag_value_2,tag_value_3,tag_value_4,instance_type,account_id,account_name,region, platform,instance_state,hourly_price,recent_launch_time) 
-                            VALUES (%s, %s,%s, %s,%s, %s,%s, %s,%s, %s,%s, %s,%s, %s,%s, %s)
+                            VALUES (%s, %s,%s, %s,%s, %s,%s, %s,%s, %s,%s, %s,%s, %s)
                         """,(row.instance_id ,row.instance_tag_name ,row.tag_value_1 ,row.tag_value_2 ,row.tag_value_3 ,row.tag_value_3 ,row.instance_type ,row.account_id ,row.account_name ,row.region ,row.platform ,row.instance_state ,row.hourly_price,row.recent_launch_time))
 
              
