@@ -177,7 +177,7 @@ def pass_to_db(database_with_schema,data_from_cloud,updating_by,ignore_columns):
         table = cursor.fetchone()[0]
         connection.commit()
         if table:
-            print("Already database exits 11.")
+            print("Already database exits ------>.")
         else:
             print("Database table needs to Create ")
         cursor = connection.cursor()
@@ -242,12 +242,14 @@ def get_columns(database_with_schema):
 def get_dbdata(database_with_schema):
     try:
         columns=get_columns(database_with_schema)
+        print(columns,"--------------------------->")
         database=database_with_schema.split('.')
         connection=db_connection(database[0])
         cursor = connection.cursor()
         query = " SELECT * FROM {};".format(database_with_schema)
         cursor.execute(query)
         data_from_database = pd.DataFrame(cursor.fetchall(),columns=columns)
+        print(data_from_database,"-----------------------?")
         connection.commit()
         return data_from_database
     except:
