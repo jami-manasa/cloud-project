@@ -225,7 +225,7 @@ def get_columns(database_with_schema):
     try:
         cursor = connection.cursor()
         # query = "SELECT column_name FROM INFORMATION_SCHEMA.COLUMNS WHERE TABLE_NAME = '{}';".format(database[1])
-        query = "SELECT column_name FROM INFORMATION_SCHEMA.COLUMNS WHERE TABLE_NAME = 'ss.ec2_instances_schedules';"
+        query = "SELECT column_name FROM INFORMATION_SCHEMA.COLUMNS WHERE TABLE_NAME = 'ec2_instances_schedules';"
         cursor.execute(query)
         records = cursor.fetchall()
         connection.commit()
