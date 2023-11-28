@@ -127,7 +127,6 @@ def data_crud_operation(connection,count,data_from_cloud,updating_by,database_wi
             data_from_database = data_from_database.convert_dtypes()
             pk=str(list(data_from_database.columns.values.tolist())[0])
             group_name=data_from_cloud[updating_by].unique()
-            print(group_name,"------------------------------------------------------6666666666",updating_by,"======+++++++++")
             data_from_database=data_from_database[data_from_database[updating_by] == group_name[0]]
             data_from_cloud=data_from_cloud.reset_index(drop=True)
             data_from_database=data_from_database.reset_index(drop=True)
@@ -152,6 +151,7 @@ def data_crud_operation(connection,count,data_from_cloud,updating_by,database_wi
             else:
                 cursor = connection.cursor()
                 query = "DELETE FROM {0} WHERE {1} = '{2}'".format(database[1],str(updating_by),str(group_name[0]))
+                print(query,"------------------------------------->>")
                 cursor.execute(query)
                 connection.commit()
                 cursor.close()
