@@ -141,7 +141,10 @@ def data_crud_operation(connection,count,data_from_cloud,updating_by,database_wi
                     print(data_from_database[ignore_columns])
                     print("-========================")
                     data_from_cloud = pd.merge(data_from_cloud, data_from_database[ignore_columns], how='left', on=pk)
+                    print(data_from_cloud)
+                    print("-=====================111111111111111111111===")
                     ignore_columns.pop()
+                    print("-===============3333333333333333333333=========")
                 except Exception as e:
                     print(e)
                     print("Getting issuses while ignoring the columns you mentioned .")
