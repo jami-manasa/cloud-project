@@ -124,6 +124,7 @@ def data_crud_operation(connection,count,data_from_cloud,updating_by,database_wi
             return "All data needs to insert ."
         else:
             data_from_database = get_dbdata(database_with_schema)
+            print(data_from_database,"------------------>")
             data_from_database = data_from_database.convert_dtypes()
             pk=str(list(data_from_database.columns.values.tolist())[0])
             group_name=data_from_cloud[updating_by].unique()
