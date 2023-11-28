@@ -230,7 +230,7 @@ def get_columns(database_with_schema):
         records = cursor.fetchall()
         connection.commit()
         columns=[]
-        print("------------------------->4")
+        print("------------------------->get columns function")
         print(records)
         for i in records:
             columns.append(i[0])
