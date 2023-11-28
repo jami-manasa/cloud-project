@@ -150,7 +150,7 @@ def data_crud_operation(connection,count,data_from_cloud,updating_by,database_wi
                
             else:
                 cursor = connection.cursor()
-                query = "DELETE FROM {0} WHERE {1} = '{2}'".format(database[1],str(updating_by),str(group_name[0]))
+                query = "DELETE FROM ss.{0} WHERE {1} = '{2}'".format(database[1],str(updating_by),str(group_name[0]))
                 print(query,"------------------------------------->>")
                 cursor.execute(query)
                 connection.commit()
