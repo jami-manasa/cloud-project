@@ -124,10 +124,10 @@ def data_crud_operation(connection,count,data_from_cloud,updating_by,database_wi
             return "All data needs to insert ."
         else:
             data_from_database = get_dbdata(database_with_schema)
-            print(data_from_database,"------------------0000data")
             data_from_database = data_from_database.convert_dtypes()
             pk=str(list(data_from_database.columns.values.tolist())[0])
             group_name=data_from_cloud[updating_by].unique()
+            print(group_name,"------------------------------------------------------6666666666",updating_by,"======+++++++++")
             data_from_database=data_from_database[data_from_database[updating_by] == group_name[0]]
             data_from_cloud=data_from_cloud.reset_index(drop=True)
             data_from_database=data_from_database.reset_index(drop=True)
@@ -135,16 +135,9 @@ def data_crud_operation(connection,count,data_from_cloud,updating_by,database_wi
                 try:
                     data_from_cloud.drop(ignore_columns, axis='columns', inplace=True)
                     ignore_columns.append(pk)
-                    print(ignore_columns,"----------------------------------------------------------9999999999999999")
-                    print(list(data_from_cloud.columns))
-                    print("-------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------..........>>>>>>>>>>>>>>>>")
-                    print(data_from_database[ignore_columns])
-                    print("-========================")
                     data_from_cloud = pd.merge(data_from_cloud, data_from_database[ignore_columns], how='left', on=pk)
                     print(data_from_cloud)
-                    print("-=====================111111111111111111111===")
                     ignore_columns.pop()
-                    print("-===============3333333333333333333333=========")
                 except Exception as e:
                     print(e)
                     print("Getting issuses while ignoring the columns you mentioned .")
@@ -158,8 +151,8 @@ def data_crud_operation(connection,count,data_from_cloud,updating_by,database_wi
                
             else:
                 cursor = connection.cursor()
-                Query = "DELETE FROM {0} WHERE {1} = '{2}'".format(database[1],str(updating_by),str(group_name[0]))
-                cursor.execute(Query)
+                query = "DELETE FROM {0} WHERE {1} = '{2}'".format(database[1],str(updating_by),str(group_name[0]))
+                cursor.execute(query)
                 connection.commit()
                 cursor.close()
                 inserting=insert_values(database_with_schema,data_from_cloud)
