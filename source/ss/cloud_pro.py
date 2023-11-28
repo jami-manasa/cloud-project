@@ -45,7 +45,7 @@ def myconverter(o):
     if isinstance(o, datetime):
         return o.__str__()
 columns=get_columns("ss.ec2_instances_schedules")
-ignore_columns=['enable_schedules','ec2_group_name','is_statefull_set','statefull_set_name','statefull_set_arn', 'auto_stop_enable','mon_str_time','mon_stp_time','tue_str_time','tue_stp_time','wed_str_time','wed_stp_time','thu_str_time','thu_stp_time','fri_str_time','fri_stp_time','sat_str_time','sat_stp_time','sun_str_time','sun_stp_time','stack_arn']
+ignore_columns=['ec2_group_name', 'auto_stop_enable']
 for account_id in account_ids:
     data_from_aws = pd.DataFrame(columns=columns)
     #account details from database
