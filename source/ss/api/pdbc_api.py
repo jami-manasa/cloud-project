@@ -138,7 +138,7 @@ def data_crud_operation(connection,count,data_from_cloud,updating_by,database_wi
                     print(ignore_columns,"----------------------------------------------------------9999999999999999")
                     print(list(data_from_cloud.columns))
                     print("-------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------..........>>>>>>>>>>>>>>>>")
-                    print(list(data_from_database.columns))
+                    print(data_from_database[ignore_columns])
                     print("-========================")
                     data_from_cloud = pd.merge(data_from_cloud, data_from_database[ignore_columns], how='left', on=pk)
                     ignore_columns.pop()
