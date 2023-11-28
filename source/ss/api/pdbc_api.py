@@ -136,9 +136,10 @@ def data_crud_operation(connection,count,data_from_cloud,updating_by,database_wi
                     data_from_cloud.drop(ignore_columns, axis='columns', inplace=True)
                     ignore_columns.append(pk)
                     print(ignore_columns,"----------------------------------------------------------9999999999999999")
-                    print(data_from_cloud)
+                    print(list(data_from_cloud.columns))
                     print("-------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------..........>>>>>>>>>>>>>>>>")
-                    print(data_from_database)
+                    print(list(data_from_database.columns))
+                    print("-========================")
                     data_from_cloud = pd.merge(data_from_cloud, data_from_database[ignore_columns], how='left', on=pk)
                     ignore_columns.pop()
                 except Exception as e:
