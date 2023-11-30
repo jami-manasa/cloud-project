@@ -95,13 +95,6 @@ def data_crud_operation(connection,count,data_from_cloud,updating_by,database_wi
             data_from_database=data_from_database[data_from_database[updating_by] == group_name[0]]
             data_from_cloud=data_from_cloud.reset_index(drop=True)
             data_from_database=data_from_database.reset_index(drop=True)
-            try:
-                data_from_database = data_from_database.replace({'<NA>': 'None'}, regex=True)
-            except Exception as e:
-                    print(e)
-                    print("new error-------------------------here--->>")
-            
-            print(data_from_database,"--------------------------------------what your looking 222222222")
             if len(ignore_columns) != 0:
                 try:
                     data_from_cloud.drop(ignore_columns, axis='columns', inplace=True)
