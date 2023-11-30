@@ -100,6 +100,7 @@ def data_crud_operation(connection,count,data_from_cloud,updating_by,database_wi
                     data_from_cloud = pd.merge(data_from_cloud, data_from_database[ignore_columns], how='left', on=pk)
                     print(data_from_cloud,"------------------------------after merging cloud and database data if database has alreday some data---------------------------->")
                     ignore_columns.pop()
+                    print(ignore_columns)
                 except Exception as e:
                     print(e)
                     print("Getting issuses while ignoring the columns you mentioned .")
@@ -193,27 +194,24 @@ def get_columns(database_with_schema):
         records = cursor.fetchall()
         connection.commit()
         columns=[]
-        print("------------------------->get columns function")
         print(records)
         for i in records:
             columns.append(i[0])
         columns=columns
         return columns
-        print(columns)
     except:
         print("check whether the database exits or not")
 
 def get_dbdata(database_with_schema):
     try:
         columns=get_columns(database_with_schema)
-        print(columns,"--------------------------->")
         database=database_with_schema.split('.')
         connection=db_connection(database[0])
         cursor = connection.cursor()
         query = " SELECT * FROM {};".format(database_with_schema)
         cursor.execute(query)
         data_from_database = pd.DataFrame(cursor.fetchall(),columns=columns)
-        print(data_from_database,"-----------------------?")
+        print(data_from_database.head(2),"-----------data_from_database------------?")
         connection.commit()
         return data_from_database
     except:
@@ -236,7 +234,7 @@ def get_dbdata_with_columns(database_with_schema,wanted_columns):
 def remove_records(database_with_schema,update_by,update_value):
     database=database_with_schema.split('.')
     connection=db_connection(database[0])
-    print("")
+    print("          ")
     try:
         cursor = connection.cursor()
         query = "DELETE FROM {0} WHERE {1} = '{2}'".format(database[1],update_by,update_value)
