@@ -100,8 +100,9 @@ def data_crud_operation(connection,count,data_from_cloud,updating_by,database_wi
             data_from_database=data_from_database.reset_index(drop=True)
             try:
                 data_from_database = data_from_database.replace({'<NA>': 'None'}, regex=True)
-            except:
-                print("new error-------------------------here--->>")
+            except Exception as e:
+                    print(e)
+                    print("new error-------------------------here--->>")
             
             print(data_from_database,"--------------------------------------what your looking 222222222")
             if len(ignore_columns) != 0:
