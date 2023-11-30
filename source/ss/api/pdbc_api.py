@@ -140,7 +140,7 @@ def data_crud_operation(connection,count,data_from_cloud,updating_by,database_wi
                
                 query1 = "UPDATE ss.{0} SET auto_stop_enable = 'true' WHERE {1} = '{2}'".format(database[1],str(updating_by),str(group_name[0]))
                 query2 = "UPDATE ss.{0} SET auto_stop_enable = 'false' WHERE {1} = '{2}'".format(database[1],'instance_id','i-0d9c856701a373199')
-                print(query1,"------------------------------------->>"query2)
+                print(query1,"------------------------------------->>",query2)
                 
                 cursor.execute(query)
                 connection.commit()
