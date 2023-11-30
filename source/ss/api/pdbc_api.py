@@ -101,6 +101,9 @@ def data_crud_operation(connection,count,data_from_cloud,updating_by,database_wi
                     # print(list(data_from_cloud.columns),"------------------------------after merging cloud and database data if database has alreday some data---------------------------->")
                     # print(list(data_from_database.columns),"-=====================>>>>>>>>>>>>>>>")
                     data_from_cloud = data_from_cloud[list(data_from_database.columns)]
+                    print(list(data_from_cloud.columns),"------------------------------after merging cloud and database data if database has alreday some data---------------------------->")
+                    print(list(data_from_database.columns)
+                    
                     ignore_columns.pop()
                     # print(ignore_columns)
                 except Exception as e:
@@ -113,7 +116,6 @@ def data_crud_operation(connection,count,data_from_cloud,updating_by,database_wi
                 inserting=insert_values(database_with_schema,data_from_cloud)
                 print(str(inserting)+" changes in database")
             elif data_from_cloud.equals(data_from_database):
-                print(data_from_cloud.head(3))
                 print("=============================== now 29th nov 44444444444444444")
                 print("No need to update the data.Because its equal to data from database.")
                
