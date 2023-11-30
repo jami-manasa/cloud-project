@@ -106,7 +106,7 @@ def statefull_auto_stop(statefull):
             ec2 = create_client(acc_id,region,assume_role, 'ec2')
             print(stop_instances(ec2,ins_id,connection))
     else:
-        print("no need of autostop for this  stateful set ")
+        print("No need of autostop for this  EC2 ")
 
        
 
@@ -116,7 +116,7 @@ wanted_columns=["account_id","region","instance_id","instance_tag_name","account
 data_from_database=get_dbdata_with_columns("ss.ec2_instances_schedules",wanted_columns)
 
 if data_from_database.empty:
-     print("auto_stop state is false for aws instances's")
+     print("Auto_stop state is false for aws instances's")
         
         
 else:
