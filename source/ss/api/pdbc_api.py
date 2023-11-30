@@ -98,9 +98,9 @@ def data_crud_operation(connection,count,data_from_cloud,updating_by,database_wi
                     data_from_cloud.drop(ignore_columns, axis='columns', inplace=True)
                     ignore_columns.append(pk)
                     data_from_cloud = pd.merge(data_from_cloud, data_from_database[ignore_columns], how='left', on=pk)
-                    print(list(data_from_cloud.columns),"------------------------------after merging cloud and database data if database has alreday some data---------------------------->")
-                    print(list(data_from_database.columns),"-=====================>>>>>>>>>>>>>>>")
-                    # data_from_cloud = data_from_cloud[['Sr.no', 'Maths Score', 'Name']]
+                    # print(list(data_from_cloud.columns),"------------------------------after merging cloud and database data if database has alreday some data---------------------------->")
+                    # print(list(data_from_database.columns),"-=====================>>>>>>>>>>>>>>>")
+                    data_from_cloud = data_from_cloud[list(data_from_database.columns]
                     ignore_columns.pop()
                     # print(ignore_columns)
                 except Exception as e:
@@ -216,7 +216,7 @@ def get_dbdata(database_with_schema):
         query = " SELECT * FROM {};".format(database_with_schema)
         cursor.execute(query)
         data_from_database = pd.DataFrame(cursor.fetchall(),columns=columns)
-        print(data_from_database.head(2),"-----------data_from_database------------?")
+        # print(data_from_database.head(2),"-----------data_from_database------------?")
         connection.commit()
         return data_from_database
     except:
