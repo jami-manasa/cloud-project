@@ -102,7 +102,7 @@ def data_crud_operation(connection,count,data_from_cloud,updating_by,database_wi
                     # print(list(data_from_database.columns),"-=====================>>>>>>>>>>>>>>>")
                     data_from_cloud = data_from_cloud[list(data_from_database.columns)]
                     print(list(data_from_cloud.columns),"------------------------------after merging cloud and database data if database has alreday some data---------------------------->")
-                    print(list(data_from_database.columns)
+                    print(list(data_from_database.columns)]
                     
                     ignore_columns.pop()
                     # print(ignore_columns)
