@@ -100,22 +100,25 @@ def data_crud_operation(connection,count,data_from_cloud,updating_by,database_wi
                     data_from_cloud = pd.merge(data_from_cloud, data_from_database[ignore_columns], how='left', on=pk)
                     print(data_from_cloud,"------------------------------after merging cloud and database data if database has alreday some data---------------------------->")
                     ignore_columns.pop()
-                    print(ignore_columns)
+                    # print(ignore_columns)
                 except Exception as e:
                     print(e)
                     print("Getting issuses while ignoring the columns you mentioned .")
                     
             if data_from_database.empty:
+                print("=============================== now 29th nov")
                 print("All data need to insert.")
                 inserting=insert_values(database_with_schema,data_from_cloud)
                 print(str(inserting)+" changes in database")
             elif data_from_cloud.equals(data_from_database):
+                print("=============================== now 29th nov 44444444444444444")
                 print("No need to update the data.Because its equal to data from database.")
                
             else:
                 cursor = connection.cursor()
+                print("=============================== now 29th nov  7777777777777")
                 query = "DELETE FROM ss.{0} WHERE {1} = '{2}'".format(database[1],str(updating_by),str(group_name[0]))
-                print(query,"------------------------------------->>")
+                # print(query,"------------------------------------->>")
                 cursor.execute(query)
                 connection.commit()
                 cursor.close()
@@ -182,9 +185,7 @@ def get_awsaccount_details(account_id,connection):
 
 
 def get_columns(database_with_schema):
-    
     database=database_with_schema.split('.')
-    
     connection=db_connection(database[0])
     try:
         cursor = connection.cursor()
@@ -194,7 +195,6 @@ def get_columns(database_with_schema):
         records = cursor.fetchall()
         connection.commit()
         columns=[]
-        print(records)
         for i in records:
             columns.append(i[0])
         columns=columns
