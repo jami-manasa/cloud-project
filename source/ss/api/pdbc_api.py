@@ -88,12 +88,22 @@ def data_crud_operation(connection,count,data_from_cloud,updating_by,database_wi
         else:
             data_from_database = get_dbdata(database_with_schema)
             data_from_database = data_from_database.convert_dtypes()
+            print(data_from_database,"--------------------------------------what your looking 111111111111")
             pk=str(list(data_from_database.columns.values.tolist())[0])
             group_name=data_from_cloud[updating_by].unique()
+            
+            print(data_from_database,"--------------------------------------what your looking 00000000")
             data_from_database=data_from_database[data_from_database[updating_by] == group_name[0]]
+            print(data_from_database,"--------------------------------------what your looking 99999999999")
             data_from_cloud=data_from_cloud.reset_index(drop=True)
+            print(data_from_database,"--------------------------------------what your looking 666666666666")
             data_from_database=data_from_database.reset_index(drop=True)
-            print(data_from_database,"--------------------------------------what your looking")
+            try:
+                data_from_database = data_from_database.replace(np.NA, None)
+            except:
+                print("new error-------------------------here--->>")
+            
+            print(data_from_database,"--------------------------------------what your looking 222222222")
             if len(ignore_columns) != 0:
                 try:
                     data_from_cloud.drop(ignore_columns, axis='columns', inplace=True)
@@ -122,7 +132,7 @@ def data_crud_operation(connection,count,data_from_cloud,updating_by,database_wi
                
             else:
                 cursor = connection.cursor()
-                print(data_from_cloud.head(3))
+                # print(data_from_cloud.head(3))
                 print("=============================== now 29th nov  7777777777777")
                 print(data_from_database.head(3))
                 query = "DELETE FROM ss.{0} WHERE {1} = '{2}'".format(database[1],str(updating_by),str(group_name[0]))
