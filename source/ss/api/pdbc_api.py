@@ -88,18 +88,18 @@ def data_crud_operation(connection,count,data_from_cloud,updating_by,database_wi
         else:
             data_from_database = get_dbdata(database_with_schema)
             data_from_database = data_from_database.convert_dtypes()
-            print(data_from_database,"--------------------------------------what your looking 111111111111")
+            # print(data_from_database,"--------------------------------------what your looking 111111111111")
             pk=str(list(data_from_database.columns.values.tolist())[0])
             group_name=data_from_cloud[updating_by].unique()
             
-            print(data_from_database,"--------------------------------------what your looking 00000000")
+            # print(data_from_database,"--------------------------------------what your looking 00000000")
             data_from_database=data_from_database[data_from_database[updating_by] == group_name[0]]
-            print(data_from_database,"--------------------------------------what your looking 99999999999")
+            # print(data_from_database,"--------------------------------------what your looking 99999999999")
             data_from_cloud=data_from_cloud.reset_index(drop=True)
-            print(data_from_database,"--------------------------------------what your looking 666666666666")
+            # print(data_from_database,"--------------------------------------what your looking 666666666666")
             data_from_database=data_from_database.reset_index(drop=True)
             try:
-                data_from_database = data_from_database.replace(np.NA, None)
+                data_from_database = data_from_database.replace({'<NA>': 'None'}, regex=True)
             except:
                 print("new error-------------------------here--->>")
             
