@@ -98,8 +98,8 @@ def data_crud_operation(connection,count,data_from_cloud,updating_by,database_wi
                     data_from_cloud.drop(ignore_columns, axis='columns', inplace=True)
                     ignore_columns.append(pk)
                     data_from_cloud = pd.merge(data_from_cloud, data_from_database[ignore_columns], how='left', on=pk)
-                    print(data_from_cloud.columns,"------------------------------after merging cloud and database data if database has alreday some data---------------------------->")
-                    print(data_from_database.columns,"-=====================>>>>>>>>>>>>>>>")
+                    print(list(data_from_cloud.columns),"------------------------------after merging cloud and database data if database has alreday some data---------------------------->")
+                    print(list(data_from_database.columns),"-=====================>>>>>>>>>>>>>>>")
                     # data_from_cloud = data_from_cloud[['Sr.no', 'Maths Score', 'Name']]
                     ignore_columns.pop()
                     # print(ignore_columns)
