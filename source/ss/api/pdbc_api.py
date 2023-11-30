@@ -218,7 +218,10 @@ def get_dbdata(database_with_schema):
         query = " SELECT * FROM {};".format(database_with_schema)
         cursor.execute(query)
         data_from_database = pd.DataFrame(cursor.fetchall(),columns=columns)
-        data_from_database = data_from_database.replace(np.nan, None)
+        try:
+            data_from_database = data_from_database.replace(np.nan, None)
+        except:
+            print("new error-------------------------here--->>")
         print(data_from_database.head(2),"-----------data_from_database------------?")
         connection.commit()
         return data_from_database
