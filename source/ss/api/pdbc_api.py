@@ -44,6 +44,7 @@ def insert_values(database_with_schema,data_from_aws):
              buffer = StringIO()  
              data_from_aws.to_csv(buffer, index=False, header=False) 
              col=get_columns(database_with_schema)
+             print(data_from_aws,"++++++++++++++++++++++++++++++++++++++++++++++++++++++++++")
              for row in data_from_aws.itertuples():
                         cursor.execute("""
                             INSERT INTO ss.ec2_instances_schedules (instance_id,instance_tag_name,tag_value_1,tag_value_2,tag_value_3,tag_value_4,instance_type,account_id,account_name,region, platform,instance_state,hourly_price,recent_launch_time) 
