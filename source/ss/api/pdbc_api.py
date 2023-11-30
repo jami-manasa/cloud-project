@@ -6,19 +6,7 @@ import time
 import psycopg2.extras
 from api.aws_api import *
 from sqlalchemy import create_engine 
-# try:
-#     with open("/bin/config.json", "r") as conf_file:
-#         configs = json.load(conf_file)
-# except FileNotFoundError as err:
-#     print(err.__str__())
-#     raise err
 
-# def db_connection(schema):
-#     try:
-#         connection=psycopg2.connect(options="-c search_path=dbos,{}".format(schema), **configs["DATABASE"])
-#         return connection
-#     except Exception as e:
-#         print("Failed create a db connection -- ",e)
 
 def db_connection(schema):
     try:
@@ -253,88 +241,3 @@ def remove_records(database_with_schema,update_by,update_value):
     except Exception as e:
         print(e)
 
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-# def insert_values(database_with_schema,data_from_aws):
-#     database=database_with_schema.split('.')
-#     connection=db_connection(database[0])
-#     try:
-#         cursor = connection.cursor()
-#         buffer = StringIO()
-#         data_from_aws.to_csv( buffer, index=False, header=False)
-#         # f=open("name.csv",'r')
-#         # cursor.copy_expert("COPY ss.ec2_instances_schedules FROM STDIN DELIMITER ','; ", buffer)
-#         # buffer.seek(0)
-
-
-#         # copy_query = "COPY 'ss.ec2_instances_schedules'  FROM STDOUT csv DELIMITER '\t' NULL ''  ESCAPE '\\' HEADER "  # Replace your table name in place of mem_info
-#         # cursor.copy_expert(copy_query, buffer)
-#         # buffer.seek(0)
-#         # cursor.copy_from(f, "'ss'.ec2_instances_schedules",sep=",",null='')
-#         buffer.getvalue()
-#         print(cursor.copy_expert(buffer,"{}".format(database_with_schema), sep=","))
-#         # connection.commit() 
-#         # cursor.close()
-#         return "succesfully "
-#     except (Exception, psycopg2.DatabaseError) as error:    
-
-
-# def insert_values(database_with_schema,data_from_aws):
-#     print("in insert function")
-#     database=database_with_schema.split('.')
-#     connection=db_connection(database[0])
-#     try:
-#         cursor = connection.cursor()
-#         buffer = StringIO()
-#         data_from_aws.to_csv( buffer, index=False, header=False)
-#         print(data_from_aws)
-#         print("---------------------------------------------------------------------------------------------------------------------------")
-#         # f=open("name.csv",'r')
-#         # cursor.copy_expert("COPY ss.ec2_instances_schedules FROM STDIN DELIMITER ','; ", buffer)
-#         # buffer.seek(0)
-
-
-#         # copy_query = "COPY ss.ec2_instances_schedules  FROM STDOUT csv DELIMITER '\t' NULL ''  ESCAPE '\\' HEADER "  # Replace your table name in place of mem_info
-        
-#         # cursor.copy_expert(copy_query, buffer)
-        
-#         # buffer.seek(0)
-#         print("here I am")
-#         cursor.copy_from(data_from_aws, "'ss'.ec2_instances_schedules",sep=",",null='')
-#         print("-------------------1")
-#         buffer.getvalue()
-#         print(cursor.copy_expert(buffer,"{}".format(database_with_schema), sep=","))
-#         print("finally----------------------------------->")
-#         connection.commit() 
-#         cursor.close()
-#         print("finally----------------------------------->1111")
-#         return "successfully"
-#     except (Exception, psycopg2.DatabaseError) as error:        
-#         print("Error: %s" % error)
-#         return "failed to insert data "
-
-#         print("Error: %s" % error)
-#         return "failed to insert data "
