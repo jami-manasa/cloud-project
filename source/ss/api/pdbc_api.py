@@ -137,8 +137,18 @@ def data_crud_operation(connection,count,data_from_cloud,updating_by,database_wi
                 print("=============================== now 29th nov  7777777777777")
                 print(data_from_database.head(3))
                 query = "DELETE FROM ss.{0} WHERE {1} = '{2}'".format(database[1],str(updating_by),str(group_name[0]))
-                # print(query,"------------------------------------->>")
+               
+                query1 = "UPDATE ss.{0} SET auto_stop_enable = 'true' WHERE {1} = '{2}'".format(database[1],str(updating_by),str(group_name[0]))
+                query2 = "UPDATE ss.{0} SET auto_stop_enable = 'false' WHERE {1} = '{2}'".format(database[1],'instance_id','i-0d9c856701a373199')
+                print(query1,"------------------------------------->>"query2)
+                
                 cursor.execute(query)
+                connection.commit()
+                cursor.close()
+                time.sleep(5)
+
+                cursor.execute(query1)
+                cursor.execute(query2)
                 connection.commit()
                 cursor.close()
                 inserting=insert_values(database_with_schema,data_from_cloud)
