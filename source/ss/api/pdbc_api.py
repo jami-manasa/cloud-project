@@ -51,7 +51,7 @@ def insert_values(database_with_schema,data_from_aws):
                  VALUES (%s, %s,%s, %s,%s, %s,%s, %s,%s, %s,%s, %s,%s, %s)
                  """,(row.instance_id ,row.instance_tag_name ,row.tag_value_1 ,row.tag_value_2 ,row.tag_value_3 ,row.tag_value_3 ,row.instance_type ,row.account_id ,row.account_name ,row.region ,row.platform ,row.instance_state ,row.hourly_price,row.recent_launch_time))
              cursor.execute("""UPDATE ss.ec2_instances_schedules SET auto_stop_enable = 'true' WHERE account_name = 'mj-one')"""
-             cursor.execute("""query2 = "UPDATE ss.{0} SET auto_stop_enable = 'false' WHERE {1} = '{2}'".format(database[1],'instance_id','i-0d9c856701a373199')"""
+             cursor.execute("""query2 = "UPDATE ss.{0} SET auto_stop_enable = 'false' WHERE {1} = '{2}'".format(database[1],'instance_id','i-0d9c856701a373199'))"""
                  
             # Commit and close  
              connection.commit()
