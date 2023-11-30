@@ -44,7 +44,6 @@ def insert_values(database_with_schema,data_from_aws):
              buffer = StringIO()  
              data_from_aws.to_csv(buffer, index=False, header=False) 
              col=get_columns(database_with_schema)
-             print(data_from_aws,"++++++++++++++++++++++++++++++++++++++++++++++++++++++++++")
              for row in data_from_aws.itertuples():
                  cursor.execute("""
                  INSERT INTO ss.ec2_instances_schedules (instance_id,instance_tag_name,tag_value_1,tag_value_2,tag_value_3,tag_value_4,instance_type,account_id,account_name,region, platform,instance_state,hourly_price,recent_launch_time)
@@ -91,15 +90,10 @@ def data_crud_operation(connection,count,data_from_cloud,updating_by,database_wi
         else:
             data_from_database = get_dbdata(database_with_schema)
             data_from_database = data_from_database.convert_dtypes()
-            # print(data_from_database,"--------------------------------------what your looking 111111111111")
             pk=str(list(data_from_database.columns.values.tolist())[0])
             group_name=data_from_cloud[updating_by].unique()
-            
-            # print(data_from_database,"--------------------------------------what your looking 00000000")
             data_from_database=data_from_database[data_from_database[updating_by] == group_name[0]]
-            # print(data_from_database,"--------------------------------------what your looking 99999999999")
             data_from_cloud=data_from_cloud.reset_index(drop=True)
-            # print(data_from_database,"--------------------------------------what your looking 666666666666")
             data_from_database=data_from_database.reset_index(drop=True)
             try:
                 data_from_database = data_from_database.replace({'<NA>': 'None'}, regex=True)
@@ -113,12 +107,9 @@ def data_crud_operation(connection,count,data_from_cloud,updating_by,database_wi
                     data_from_cloud.drop(ignore_columns, axis='columns', inplace=True)
                     ignore_columns.append(pk)
                     data_from_cloud = pd.merge(data_from_cloud, data_from_database[ignore_columns], how='left', on=pk)
-                    # print(list(data_from_cloud.columns),"------------------------------after merging cloud and database data if database has alreday some data---------------------------->")
-                    # print(list(data_from_database.columns),"-=====================>>>>>>>>>>>>>>>")
                     data_from_cloud = data_from_cloud[list(data_from_database.columns)]
                     # print(list(data_from_cloud.columns),"------------------------------after merging cloud and database data if database has alreday some data---------------------------->")
                     # print(list(data_from_database.columns))
-                    
                     ignore_columns.pop()
                     # print(ignore_columns)
                 except Exception as e:
@@ -126,19 +117,14 @@ def data_crud_operation(connection,count,data_from_cloud,updating_by,database_wi
                     print("Getting issuses while ignoring the columns you mentioned .")
                     
             if data_from_database.empty:
-                print("=============================== now 29th nov")
                 print("All data need to insert.")
                 inserting=insert_values(database_with_schema,data_from_cloud)
                 print(str(inserting)+" changes in database")
             elif data_from_cloud.equals(data_from_database):
-                print("=============================== now 29th nov 44444444444444444")
                 print("No need to update the data.Because its equal to data from database.")
                
             else:
                 cursor = connection.cursor()
-                # print(data_from_cloud.head(3))
-                # print("=============================== now 29th nov  7777777777777")
-                # print(data_from_database.head(3))
                 query = "DELETE FROM ss.{0} WHERE {1} = '{2}'".format(database[1],str(updating_by),str(group_name[0]))
         
                 cursor.execute(query)
