@@ -93,6 +93,7 @@ def data_crud_operation(connection,count,data_from_cloud,updating_by,database_wi
             data_from_database=data_from_database[data_from_database[updating_by] == group_name[0]]
             data_from_cloud=data_from_cloud.reset_index(drop=True)
             data_from_database=data_from_database.reset_index(drop=True)
+            print(data_from_database,"--------------------------------------what your looking")
             if len(ignore_columns) != 0:
                 try:
                     data_from_cloud.drop(ignore_columns, axis='columns', inplace=True)
@@ -101,8 +102,8 @@ def data_crud_operation(connection,count,data_from_cloud,updating_by,database_wi
                     # print(list(data_from_cloud.columns),"------------------------------after merging cloud and database data if database has alreday some data---------------------------->")
                     # print(list(data_from_database.columns),"-=====================>>>>>>>>>>>>>>>")
                     data_from_cloud = data_from_cloud[list(data_from_database.columns)]
-                    print(list(data_from_cloud.columns),"------------------------------after merging cloud and database data if database has alreday some data---------------------------->")
-                    print(list(data_from_database.columns))
+                    # print(list(data_from_cloud.columns),"------------------------------after merging cloud and database data if database has alreday some data---------------------------->")
+                    # print(list(data_from_database.columns))
                     
                     ignore_columns.pop()
                     # print(ignore_columns)
@@ -222,7 +223,7 @@ def get_dbdata(database_with_schema):
             data_from_database = data_from_database.replace(np.nan, None)
         except:
             print("new error-------------------------here--->>")
-        print(data_from_database.head(2),"-----------data_from_database------------?")
+        # print(data_from_database.head(2),"-----------data_from_database------------?")
         connection.commit()
         return data_from_database
     except:
