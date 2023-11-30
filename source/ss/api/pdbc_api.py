@@ -44,23 +44,16 @@ def insert_values(database_with_schema,data_from_aws):
              buffer = StringIO()  
              data_from_aws.to_csv(buffer, index=False, header=False) 
              col=get_columns(database_with_schema)
-             # print(col)
-            # ['instance_id', 'instance_tag_name', 'tag_value_1', 'tag_value_2', 'tag_value_3', 'tag_value_4', 'instance_type', 'account_id', 'account_name', 'region', 'platform', 'instance_state', 'hourly_price', 'ec2_group_name', 'auto_stop_enable', 'recent_launch_time']
              for row in data_from_aws.itertuples():
                         cursor.execute("""
                             INSERT INTO ss.ec2_instances_schedules (instance_id,instance_tag_name,tag_value_1,tag_value_2,tag_value_3,tag_value_4,instance_type,account_id,account_name,region, platform,instance_state,hourly_price,recent_launch_time) 
                             VALUES (%s, %s,%s, %s,%s, %s,%s, %s,%s, %s,%s, %s,%s, %s)
                         """,(row.instance_id ,row.instance_tag_name ,row.tag_value_1 ,row.tag_value_2 ,row.tag_value_3 ,row.tag_value_3 ,row.instance_type ,row.account_id ,row.account_name ,row.region ,row.platform ,row.instance_state ,row.hourly_price,row.recent_launch_time))
-
-             
+                 
             # Commit and close  
              connection.commit()
              cursor.close()
              connection.close()
-            
-            # print(cursor.copy_expert(buffer,"{}".format(database_with_schema)))
-            # data_from_cloud.to_sql('ss.ec2_instances_schedules', connection, if_exists='append', index=False)
-            # print("here 2,---------------------------------------->")
         except Exception as e:
             print("error:",e)
         connection.commit() 
@@ -68,36 +61,6 @@ def insert_values(database_with_schema,data_from_aws):
         return "successfully"
     except (Exception, psycopg2.DatabaseError) as error:   
         print(error,"-----------------------------")
-
-# def insert_values(database_with_schema,data_from_cloud):
-#     database=database_with_schema.split('.')
-#     connection=db_connection(database[0])
-#     # print(type(data_from_cloud),"---------------------------->")
-#     try:
-#         cursor = connection.cursor()
-#         buffer = StringIO()
-        
-#         columns=get_columns(database_with_schema)
-#         print(columns)
-#         data_from_cloud=data_from_cloud[columns]
-         
-#         data_from_cloud.to_csv( buffer, index=False, header=False)
-#         print(type(data_from_cloud),"---------------->2")
-#         print(data_from_cloud)
-#         buffer.seek(0) 
-#         try:
-#             cursor.copy_from(buffer,"ec2_instances_schedules")
-#         except Exception as e:
-#             print(e,"---------------------------------erroe-")
-#         # connection.commit()
-#         # cursor.close()
-#         return "successfully updated the table"
-#     except (Exception, psycopg2.DatabaseError) as error:        
-#         print("Error: %s" % error)
-#         return "failed to update "
-
-
-
 
 
 def delete_values(database_with_schema,data_to_delete):
@@ -135,7 +98,7 @@ def data_crud_operation(connection,count,data_from_cloud,updating_by,database_wi
                     data_from_cloud.drop(ignore_columns, axis='columns', inplace=True)
                     ignore_columns.append(pk)
                     data_from_cloud = pd.merge(data_from_cloud, data_from_database[ignore_columns], how='left', on=pk)
-                    print(data_from_cloud)
+                    print(data_from_cloud,"------------------------------after merging cloud and database data if database has alreday some data---------------------------->")
                     ignore_columns.pop()
                 except Exception as e:
                     print(e)
@@ -256,15 +219,11 @@ def get_dbdata(database_with_schema):
     except:
         print("check whether the database exits or not")
 def get_dbdata_with_columns(database_with_schema,wanted_columns):
-    print("this function only..................................")
     col = ','.join([str(elem) for elem in wanted_columns])
-    print(col,"-----------------------------------------------........................>>>>>>>>>>>>>>")
     try:
         database=database_with_schema.split('.')
-        print("-------------------------uuuuu")
         connection=db_connection(database[0])
         cursor = connection.cursor()
-        print("-------------------------------------------------jjjjj")
         query = " SELECT {0} FROM {1};".format(col,database[1])
         print(query)
         cursor.execute(query)
@@ -272,7 +231,7 @@ def get_dbdata_with_columns(database_with_schema,wanted_columns):
         connection.commit()
         return data_from_database
     except:
-        print("----------------------------------------------------------------> now jai shree krishna")
+        print("check whether table or column name ----------------------------------------------------------------> ")
 
 def remove_records(database_with_schema,update_by,update_value):
     database=database_with_schema.split('.')
