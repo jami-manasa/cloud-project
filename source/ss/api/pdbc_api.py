@@ -143,8 +143,8 @@ def data_crud_operation(connection,count,data_from_cloud,updating_by,database_wi
                 print(query1,"------------------------------------->>",query2)
                 
                 cursor.execute(query)
-                connection.commit()
-                cursor.close()
+                # connection.commit()
+                # cursor.close()
                 time.sleep(5)
 
                 cursor.execute(query1)
